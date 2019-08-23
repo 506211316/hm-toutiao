@@ -1,6 +1,8 @@
 <template>
   <el-container class="my-container">
-    <el-aside width="200px">Aside</el-aside>
+    <el-aside width="200px">
+      <div class="logo"></div>
+    </el-aside>
     <el-container>
       <!-- header内容 -->
       <el-header>
@@ -10,13 +12,14 @@
         <el-dropdown class="rightList">
           <span class="el-dropdown-link">
             <!-- 要显示的内容 -->
-            下拉菜单
+            <img class="avatar" src="../../assets/images/avatar.jpg" alt="">
+            <span class="username">  用户名</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <!-- 下拉菜单的内容 -->
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>个人设置</el-dropdown-item>
-            <el-dropdown-item>退出登录</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-setting">个人设置</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-unlock">退出登录</el-dropdown-item>
           </el-dropdown-menu>
           <!-- 下拉菜单的内容end -->
         </el-dropdown>
@@ -38,6 +41,11 @@ export default {}
   position: absolute;
   top: 0;
   left: 0;
+  .logo {
+    width: 100%;
+    height: 60px;
+    background: #002244 url(../../assets/images/logo_admin.png) no-repeat center / 140px auto;
+  }
   .el-header {
     border-bottom: 1px solid #ddd;
     line-height: 60px;
@@ -50,6 +58,16 @@ export default {}
     }
     .rightList {
       float: right;
+      .avatar {
+        width: 30px;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+      .username {
+        font-weight: bold;
+        color: #333;
+        vertical-align: middle;
+      }
     }
   }
   .el-aside {
