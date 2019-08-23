@@ -5,6 +5,7 @@
       <!-- 插入logo图片 -->
       <img src="../../assets/images/logo_index.png" alt />
       <!-- 插入form表单，设置控件 -->
+      <!-- ref就是把当前的这个标签中的所有内容都获取到了，就可以认为ref类似于id，而后面的就是自定义的名字 -->
       <el-form :model="loginForm" ref="loginForm" :rules="loginRules">
         <!-- 输入手机号模块 -->
         <el-form-item prop="mobile">
@@ -70,14 +71,24 @@ export default {
   },
   methods: {
     submitForm () {
+      // $refs就是ref，可以理解为ref是获取当前标签中的dom元素，然后通过$refs来调用其中的属性或方法
+      // ref和$refs就是从父组件中获取子组件的属性或方法
       this.$refs.loginForm.validate(valid => {
         if (valid) {
+          // 如果结果为true那么就发送axios请求
           this.$http.post(
+            // 接口是外网的接口
             'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
+            // 因为要求的参数是对象，并且参数的属性名和loginForm中的一样，所以直接就用this.loginForm就可以
             this.loginForm
+            // axios响应的结果是promise对象，所以可以使用then和catch方法
+            // 成功就使用then(res => {})，res代表成功返回的结果
           ).then(res => {
+            // 如果成功了就跳转到home页面
             this.$router.push('/')
+            // catch是失败，如果有问题就会输出这个，这里暂时不需要填写参数，否则会有问题
           }).catch(() => {
+            // 如果失败了就会有一个弹出框的提示
             this.$message.error('手机号或验证码错误')
           })
         }

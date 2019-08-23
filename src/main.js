@@ -19,7 +19,7 @@ import router from '@/router'
 // 注册element-ui
 Vue.use(ElementUi)
 
-// 把axios定义为Vue里面的一个成员
+// 把axios定义为Vue里面的一个成员，方便调用vue里面的属性
 Vue.prototype.$http = axios
 
 new Vue({
