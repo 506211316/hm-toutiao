@@ -1,6 +1,5 @@
 <template>
-  <div id="app">
-    <el-button type="primary" plain>主要按钮</el-button>
+  <div>
     <div>
       <router-view></router-view>
     </div>
@@ -8,10 +7,10 @@
 </template>
 
 <script>
-
 export default {
+
 }
 </script>
 
-<style lang="less" scope>
+<style lang="less" scoped>
 </style>

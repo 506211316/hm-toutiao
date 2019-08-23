@@ -1,22 +1,24 @@
 <template>
-  <div class="container">
-    <!-- 使用element-ui的卡片组件 -->
-    <el-card class="card">
+  <div id="content">
+    <!-- 使用element-ui插件，插入卡片模块 -->
+    <el-card class="box-card">
+      <!-- 插入logo图片 -->
       <img src="../../assets/images/logo_index.png" alt />
-      <!-- 创建form表单 -->
-      <el-form class="demo-ruleForm">
+      <!-- 插入form表单，设置控件 -->
+      <el-form :model="form" red="loginForm">
         <el-form-item>
-          <el-input v-model="ruleForm" placeholder="请输入手机号"></el-input>
+          <el-input v-model="form.name" placeholder="请输入手机号"></el-input>
         </el-form-item>
+        <!-- 输入验证码的模块 -->
         <el-form-item>
-          <el-input v-model="message" placeholder="输入验证码" style="width:236px; margin-right:25px;"></el-input>
-          <el-button>发送信息</el-button>
+          <el-input v-model="form.message" placeholder="请输入验证码" style="width:236px; margin-right:10px"></el-input>
+          <el-button>发送验证码</el-button>
         </el-form-item>
         <el-form-item>
           <el-checkbox :value="true">我已阅读并同意用户协议和隐私条款</el-checkbox>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" style="width: 100%;">主要按钮</el-button>
+          <el-button type="primary" style="width:100%;" @click="sub">登录</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -27,32 +29,39 @@
 export default {
   data () {
     return {
-      ruleForm: '',
-      message: ''
+      form: {
+        name: '',
+        message: ''
+      }
+    }
+  },
+  methods: {
+    sub () {
+      console.log(this.$refs)
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.container {
+#content {
   width: 100%;
   height: 100%;
-  background: url(../../assets/images/login_bg.jpg) no-repeat center / cover;
   position: absolute;
-  top: 0;
   left: 0;
-  .card {
+  top: 0;
+  background: url(../../assets/images/login_bg.jpg) no-repeat center / cover;
+  .box-card {
     width: 400px;
     height: 350px;
     position: absolute;
-    top: 50%;
     left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
     img {
       width: 200px;
       display: block;
-      margin: 0 auto 10px;
+      margin: 0 auto 20px;
     }
   }
 }
