@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import store from '../../store/index'
 export default {
   data () {
     // 因为手机号的规则比较严格，所以使用了自定义的校验
@@ -84,6 +85,8 @@ export default {
             // axios响应的结果是promise对象，所以可以使用then和catch方法
             // 成功就使用then(res => {})，res代表成功返回的结果
           ).then(res => {
+            // 调用setUser方法，保存用户的信息
+            store.setUser(res.data.data)
             // 如果成功了就跳转到home页面
             this.$router.push('/')
             // catch是失败，如果有问题就会输出这个，这里暂时不需要填写参数，否则会有问题
