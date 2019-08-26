@@ -10,17 +10,18 @@ import 'element-ui/lib/theme-chalk/index.css'
 // 导入less文件
 import './styles/index.less'
 
-// 导入axios组件
-import axios from 'axios'
-
 // 导入路由组件
 import router from '@/router'
+
+// 导入store/index组件
+import axios from './api/index'
+// 把axios定义为Vue里面的一个成员，方便调用vue里面的属性
+Vue.prototype.$http = axios
 
 // 注册element-ui
 Vue.use(ElementUi)
 
-// 把axios定义为Vue里面的一个成员，方便调用vue里面的属性
-Vue.prototype.$http = axios
+Vue.config.productionTip = false
 
 new Vue({
   router,

@@ -26,7 +26,7 @@
           <el-checkbox :value="true">我已阅读并同意用户协议和隐私条款</el-checkbox>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" style="width:100%;" @click="submitForm()">登录</el-button>
+          <el-button type="primary" style="width:100%;" @click="login()">登录</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import store from '../../store/index'
+import store from '@/store'
 export default {
   data () {
     // 因为手机号的规则比较严格，所以使用了自定义的校验
@@ -52,8 +52,8 @@ export default {
     }
     return {
       loginForm: {
-        mobile: '',
-        code: ''
+        mobile: '15241063313',
+        code: '246810'
       },
       // 校验规则的对象
       loginRules: {
@@ -71,29 +71,32 @@ export default {
     }
   },
   methods: {
-    submitForm () {
+    login () {
       // $refs就是ref，可以理解为ref是获取当前标签中的dom元素，然后通过$refs来调用其中的属性或方法
       // ref和$refs就是从父组件中获取子组件的属性或方法
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           // 如果结果为true那么就发送axios请求
-          this.$http.post(
+          this.$http
+            .post(
             // 接口是外网的接口
-            'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
-            // 因为要求的参数是对象，并且参数的属性名和loginForm中的一样，所以直接就用this.loginForm就可以
-            this.loginForm
+              'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
+              // 因为要求的参数是对象，并且参数的属性名和loginForm中的一样，所以直接就用this.loginForm就可以
+              this.loginForm
             // axios响应的结果是promise对象，所以可以使用then和catch方法
             // 成功就使用then(res => {})，res代表成功返回的结果
-          ).then(res => {
+            ).then(res => {
             // 调用setUser方法，保存用户的信息
-            store.setUser(res.data.data)
-            // 如果成功了就跳转到home页面
-            this.$router.push('/')
+              // console.log(res.data.data)
+              store.setUser(res.data.data)
+              // 如果成功了就跳转到home页面
+              this.$router.push('/')
             // catch是失败，如果有问题就会输出这个，这里暂时不需要填写参数，否则会有问题
-          }).catch(() => {
+              // eslint-disable-next-line handle-callback-err
+            }).catch(error => {
             // 如果失败了就会有一个弹出框的提示
-            this.$message.error('手机号或验证码错误')
-          })
+              this.$message.error('手机号或验证码错误')
+            })
         }
       })
     }
