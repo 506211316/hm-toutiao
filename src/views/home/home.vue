@@ -58,15 +58,16 @@
         <!-- 下拉菜单 -->
         <el-dropdown class="rightList">
           <span class="el-dropdown-link">
-            <!-- 要显示的内容 -->
-            <img class="avatar" src="../../assets/images/avatar.jpg" alt />
-            <span class="username">用户名</span>
+            <!-- 要显示的内容，显示真实的用户信息 -->
+            <img class="avatar" :src="photo" alt />
+            <span class="username">{{name}}</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <!-- 下拉菜单的内容 -->
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-setting">个人设置</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-unlock">退出登录</el-dropdown-item>
+            <!-- 因为el-dropdown-item是不支持dom事件的绑定，所以需要用事件修饰符把原生的dom绑定在组件上 -->
+            <el-dropdown-item icon="el-icon-setting" @click.native="setting()">个人设置</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-unlock" @click.native="logoOut()">退出登录</el-dropdown-item>
           </el-dropdown-menu>
           <!-- 下拉菜单的内容end -->
         </el-dropdown>
@@ -81,14 +82,35 @@
 </template>
 
 <script>
+import store from '../../store/index'
 export default {
   data () {
     return {
       // 定义一个开关，为false的时候侧边栏展开，为true的时候侧边栏收起
-      flag: false
+      flag: false,
+      // 定义两个空字符串，用于接收用户名字和头像
+      name: '',
+      photo: ''
     }
   },
+  created () {
+    // 获取到当前的用户信息
+    const user = store.getUser()
+    this.name = user.name
+    this.photo = user.photo
+  },
   methods: {
+    // 出发事件会跳转用户信息
+    setting () {
+      this.$router.push('/setting')
+    },
+    // 触发事件会退出登录
+    logoOut () {
+      // 清空用户信息
+      store.removeUser()
+      // 清空了用户信息，但是需要跳转到登录页面
+      this.$router.push('/login')
+    },
     // 给icon span定义一个开关的事件
     toggleMenu () {
       // 点击的时候会flag会取反，每点击一次就会与当前的取反

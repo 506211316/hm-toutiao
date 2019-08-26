@@ -12,6 +12,8 @@ import Welcome from '../views/welcome/welcome.vue'
 import NotFound from '../views/404/404.vue'
 // 导入store/index文件
 import store from '../store/index'
+// 导入article组件
+import Article from '../views/article/article.vue'
 // 注册路由
 Vue.use(VueRouter)
 // 实例化路由
@@ -26,7 +28,9 @@ const router = new VueRouter({
         // 规则welcome规则
         // welcome路由页面是home页面的二级页面，所以需要定义一个子路由
         // 因为welcome页面是第一个显示的页面，所以把锚点设置和home一样即可
-        { path: '/', name: 'welcome', component: Welcome }
+        { path: '/', name: 'welcome', component: Welcome },
+        // 规定article规则
+        { path: '/article', name: 'article', component: Article }
       ]
     },
     { path: '/login', name: 'login', component: Login },

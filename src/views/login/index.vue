@@ -74,10 +74,10 @@ export default {
     login () {
       // $refs就是ref，可以理解为ref是获取当前标签中的dom元素，然后通过$refs来调用其中的属性或方法
       // ref和$refs就是从父组件中获取子组件的属性或方法
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
           // 如果结果为true那么就发送axios请求
-          this.$http
+          /* this.$http
             .post(
             // 接口是外网的接口
               'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
@@ -96,7 +96,19 @@ export default {
             }).catch(error => {
             // 如果失败了就会有一个弹出框的提示
               this.$message.error('手机号或验证码错误')
-            })
+            }) */
+
+          // 使用await和async
+          // 忽略请求失败，只看请求成功
+          // const { data: { data } } = await this.$http.post('authorizations', this.loginForm)
+          // 捕获异常：使用 try{ //当代码可能发生错误 }catch(err){ //触发catch函数 捕获到异常（报错） }
+          try {
+            const { data: { data } } = await this.$http.post('authorizations', this.loginForm)
+            store.setUser(data)
+            this.$router.push('/')
+          } catch (e) {
+            this.$message.error('手机号或验证码错误')
+          }
         }
       })
     }
