@@ -16,6 +16,8 @@ export default {
     // 如果接收到的是有数据的，那么就正常运行，如果接收到的是一个空字符串那么就转换为一个空对象，这样解析出来不会报错，会提示undefined
     const jsonStr = window.sessionStorage.getItem(KEY) || '{}'
     // 在服务器接收到的数据是JSON格式的，所以需要转化为js对象，然后再把结果返回即可
+
+    // console.log(JSON.parse(jsonStr).token)
     return JSON.parse(jsonStr)
   },
   // 删除用户信息

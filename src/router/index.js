@@ -10,6 +10,8 @@ import Home from '../views/home/home.vue'
 import Welcome from '../views/welcome/welcome.vue'
 // 导入404页面组件
 import NotFound from '../views/404/404.vue'
+// 导入store/index文件
+import store from '../store/index'
 // 注册路由
 Vue.use(VueRouter)
 // 实例化路由
@@ -32,6 +34,14 @@ const router = new VueRouter({
     // *是通配符，代表所有的页面，如果这里的所有页面都没有符合的，那么才会出现404页面
     { path: '*', name: '404', component: NotFound }
   ]
+})
+// 根据客户端上所存储的信息进行判断，查看是否登录过，使用导航守卫
+router.beforeEach((to, from, next) => {
+  // 使用变量接收到获取到的用户信息
+  const user = store.getUser()
+  // 进行访问权限的控制，除了登录页面以外，想要访问必须要先登录，所以在路由跳转前进行判断
+  if (to.path !== '/login' && !user.token) return next('/login')
+  next()
 })
 // 导出路由
 export default router
