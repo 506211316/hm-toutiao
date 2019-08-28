@@ -9,6 +9,8 @@
 
 <script>
 export default {
+  // 定义组件的名字
+  name: 'my-bread'
 }
 </script>
 

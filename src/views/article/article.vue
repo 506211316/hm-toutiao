@@ -48,21 +48,23 @@
     </el-card>
     <!-- 内部部分 -->
     <el-card>
+      <!-- 内容显示 -->
       <el-table :data="tableData">
-        <el-table-column prop="date" label="日期" width="180"></el-table-column>
-        <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-        <el-table-column prop="address" label="地址"></el-table-column>
+        <!-- prop是从tableData中获取的数据的名字 -->
+        <el-table-column prop="title" label="标题"></el-table-column>
       </el-table>
+      <!-- 分页效果 -->
+      <el-pagination class="page" background layout="prev, pager, next, total" :total="1000"></el-pagination>
     </el-card>
   </div>
 </template>
 
 <script>
 // 导入插槽面包屑组件
-import MyBread from '../../components/my-bread'
+// import MyBread from '../../components/my-bread'
 export default {
   // 注册这个插槽组件
-  components: { MyBread },
+  // components: { MyBread },
   data () {
     return {
       // 下拉菜单显示的内容
@@ -79,11 +81,14 @@ export default {
       // 因为v-model不能传两个值，所以定义一个时间数组，根据下标获取对应的时间，0为开始时间，1为结束时间
       dateArr: [],
       // 把接收到的数据渲染到表格中
-      tableData: []
+      tableData: [{ title: '标题。。。。' }, { title: '标题。。。。' }]
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
+.page {
+  text-align: center;
+}
 </style>

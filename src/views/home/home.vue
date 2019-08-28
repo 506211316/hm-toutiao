@@ -10,7 +10,7 @@
            router是否开启路由模式，默认是false，只写router不写值也是true
        -->
       <el-menu
-        default-active="/"
+        :default-active="$route.path"
         class="el-menu-vertical-demo"
         background-color="#002033"
         text-color="#fff"

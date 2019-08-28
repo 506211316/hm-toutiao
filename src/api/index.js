@@ -21,5 +21,6 @@ axios.interceptors.response.use(res => {
     store.removeUser()
     router.push('/login')
   }
+  return Promise.reject(err)
 })
 export default axios
